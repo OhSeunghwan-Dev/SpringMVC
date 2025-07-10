@@ -10,5 +10,6 @@
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+<!-- Model 객체에 담긴 데이터를 출력하는 표현식 : ${} -->
 </body>
 </html>

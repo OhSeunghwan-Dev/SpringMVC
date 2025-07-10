@@ -24,10 +24,25 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2 // Log4j가 취약해서 Log4j2로 교체함.
 public class DataSourceTests {
 
-	@Setter(onMethod_ = @Autowired) // setter 자동생성 - setDataSource(DataSource) 가 생성된다.
+	@Setter(onMethod_ = @Autowired) // 세터 자동생성 setDataSource(DataSource)
 	private DataSource dataSource;
+
 	@Setter(onMethod_ = @Autowired)
 	private SqlSessionFactory sqlSessionFactory;
+
+	@Test
+	public void testMyBatis() {
+
+		try (SqlSession session = sqlSessionFactory.openSession();
+				Connection con = session.getConnection(); // 마이바티스
+		) {
+			log.info(session);
+			log.info(con);
+		} catch (Exception e) {
+			fail(e.getMessage());
+		}
+
+	}
 
 	@Test
 	public void testConnection() {
@@ -40,21 +55,5 @@ public class DataSourceTests {
 		}
 
 	}
-	
-	@Test
-	public void testMyBatis() {
-		
-		try(
-				SqlSession session = sqlSessionFactory.openSession();
-				Connection conn = session.getConnection();	// mybatis 연결
-			) {
-			log.info(session);
-			log.info(conn);
-		} catch (Exception e) {
-			fail(e.getMessage());
-		}
-	}
-	
-	
 
 }

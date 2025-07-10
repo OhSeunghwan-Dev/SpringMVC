@@ -11,6 +11,5 @@ import lombok.Setter;
 public class Restaurant {
 
 	@Setter(onMethod_ = @Autowired)
-	private Chef chef;	// Chef chef = new Chef();
-	
+	private Chef chef;	// Chef chef = new Chef();	
 }
