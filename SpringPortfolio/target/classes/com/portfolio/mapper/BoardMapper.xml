@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 마이바티스 기본코드 -->
+
+<mapper namespace="com.portfolio.mapper.BoardMapper">	<!-- 인터페이스명 -->
+
+	<select id="getList2" resultType="com.portfolio.domain.BoardVO">
+		<![CDATA[
+			select * from board where bno > 0
+		]]>
+	</select>
+
+	<insert id="insert">	
+		<![CDATA[
+			insert into board (bno, title, content, writer)
+			values (bno_seq.nextval, #{title}, #{content}, #{writer})
+		]]>
+	</insert>
+	
+	<insert id="insertSelectKey">
+		<selectKey keyProperty="bno" order="BEFORE" resultType="long">
+				select bno_seq.nextval from dual
+		</selectKey>
+		
+		<![CDATA[
+			insert into board (bno, title, content, writer)
+			values (#{bno}, #{title}, #{content}, #{writer})
+		]]>
+	</insert>	
+	
+	<select id="read" resultType="com.portfolio.domain.BoardVO">
+		<![CDATA[
+			select * from board where bno = #{bno}
+		]]>
+	</select>	
+
+	<delete id="delete">
+		<![CDATA[
+			delete from board where bno = #{bno}
+		]]>
+	</delete>
+	
+	<update id="update">
+		<![CDATA[
+			update 
+				board
+			set 
+				title = #{title},
+				content = #{content},
+				writer = #{writer},
+				updateDate = sysdate
+			where
+				bno = #{bno}
+		]]>
+	</update>
+
+</mapper>
